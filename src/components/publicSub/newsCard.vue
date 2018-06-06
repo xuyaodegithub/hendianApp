@@ -5,8 +5,8 @@
     </div>
     <ul>
       <li v-for="(item,index) in msg.item" :key="index" class="flex">
-       <div class="nleft">
-         <p>{{item.title}}</p>
+       <div class="nleft flex">
+         <p class="activeP">{{item.title}}</p>
          <p>{{item.time}}</p>
        </div>
         <div class="nright">
@@ -41,16 +41,31 @@
       line-height: 0.48rem;
     }
   }
-  .flex{
+  li.flex{
     justify-content: space-between;
     font-size: 0.28rem;
     line-height: 0.50rem;
-    padding:0 0.15rem;
+    padding:0.15rem;
     border-bottom: 1px solid #999999;
     margin-bottom: 0.15rem;
-    .nleft{
-      width:60%;
-      margin-right: 0.4rem;
+    .nleft.flex{
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      -ms-flex-direction: column;
+      -o-flex-direction: column;
+      flex-direction: column;
+      justify-content: space-between;
+      width:55%;
+      .activeP{
+        white-space: initial;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient: vertical;
+        line-height: 0.46rem;
+        margin-bottom: 0.2rem;
+      }
     }
     .nright{
       width:2.8rem;

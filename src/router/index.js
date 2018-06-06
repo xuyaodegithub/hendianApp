@@ -20,6 +20,21 @@ export default new Router({
           name: '拍卖',
           component: () => import(/* webpackChunkName: "HelloWorld" */ '@/components/mainSub/auction')
         },
+        {
+          path: '/videos',
+          name: '视频',
+          component: () => import(/* webpackChunkName: "HelloWorld" */ '@/components/mainSub/videos')
+        },
+        {
+          path: '/artStore',
+          name: '艺术文库',
+          component: () => import(/* webpackChunkName: "HelloWorld" */ '@/components/mainSub/artStore')
+        },
+        {
+          path: '/superstar',
+          name: '名家风采',
+          component: () => import(/* webpackChunkName: "HelloWorld" */ '@/components/mainSub/superstar')
+        },
       ]
     },
   ]

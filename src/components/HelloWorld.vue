@@ -9,13 +9,16 @@
     </div>
     <div class="navList">
       <ul class="flexx">
-        <li v-for="(item,index) in msg" :key="index" :class="{active : activeKey===index}" @click="changeRouter(item,index)">
+        <li v-for="(item,index) in msg" :key="index" :class="{active : activeKey===index}"
+            @click="changeRouter(item,index)">
           {{item.title}}
         </li>
       </ul>
     </div>
     <transition name="bounce">
-      <router-view class="child-view" />
+      <keep-alive>
+        <router-view class="child-view"/>
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -28,9 +31,10 @@
         msg: [
           {title: '首页', urlRoute: '/'},
           {title: '协会简介', urlRoute: ''},
-          {title: '艺术文库', urlRoute: ''},
+          {title: '艺术文库', urlRoute: '/artStore'},
+          {title: '名家风采', urlRoute: '/superstar'},
           {title: '拍卖', urlRoute: '/auction'},
-          {title: '视频', urlRoute: ''},
+          {title: '视频', urlRoute: '/videos'},
           {title: '古玩市场', urlRoute: ''},
           {title: '鉴定与评估', urlRoute: ''},
           {title: '视频', urlRoute: ''},
@@ -41,9 +45,9 @@
         activeKey: 0
       }
     },
-    methods:{
-      changeRouter(val,key){
-        this.activeKey=key
+    methods: {
+      changeRouter(val, key) {
+        this.activeKey = key
         this.$router.push(val.urlRoute)
       }
     }
@@ -56,15 +60,18 @@
     /*animation: bounce-in2 .5s linear;*/
     transform: translateX(100%);
   }
+
   .bounce-leave-active {
     /*animation: bounce-in .5s linear;*/
     transform: translateX(-100%);
   }
+
   .child-view {
     transition: all .3s linear;
     /*padding-bottom: 53px;*/
 
   }
+
   .head {
     padding: 0.15rem 0.3rem;
     line-height: 0.52rem;
