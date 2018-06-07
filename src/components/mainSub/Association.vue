@@ -1,108 +1,69 @@
 <template>
-  <div class="videos">
-    <ul class="aucHeader flex">
-      <li v-for="(item,index) in tapBtn" :key="index">
-        {{item.title}}
-      </li>
-    </ul>
+  <div class="Association">
+       <ul class="flex">
+         <li v-for="(item,index) in bleft" :class="{active : activekey===index}" @click="changeCom(item,index)">
+           {{item.title}}
+         </li>
+       </ul>
+    <keep-alive>
+      <component :is="title"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import { mapActions } from 'vuex'
+  import vJian from '../sonSub/jieshao.vue'
+  import vZhange from '../sonSub/zhangcheng.vue'
   export default {
-    name: 'videos',
+    name: 'Association',
     data() {
       return {
-        tapBtn:[
-          {title:'横店风采',url:''},
-          {title:'横店影视城',url:''},
-          {title:'横店圆明园',url:''},
-          {title:'协会主题活动',url:''},
+        title:'vJian',
+        bleft: [
+          {title: '协会简介', url: 'vJian'},
+          {title: '协会章程', url: 'vZhange'},
+          {title: '组织机构', url: 'vJian'},
+          {title: '专家顾问委员会', url: 'vZhange'},
+          {title: '理事会', url: 'vJian'}
         ],
-        supstar:{
-          title:'名家风采',
-          item:[
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-          ]
-        },
-        artStore:{
-          title:'艺术文库',
-          item:[
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-          ]
-        },
-        nowProduct:{
-          title:'当前拍品',
-          item:[
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-            {imgUrl:'https://o3e85j0cv.qnssl.com/tulips-1083572__340.jpg',toUrl:''},
-          ]
-        },
-        newsTell:{
-          title:'通知公告',
-          item:[
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''}
-          ]
-        },
-        newsList:{
-          title:'新闻动态',
-          item:[
-            {title:'习近平总书记调研视察东阳市横店收藏家协会',time:'06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记调研视察东阳市横店收藏家协会',time:'06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记调研视察东阳市横店收藏家协会',time:'06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记调研视察东阳市横店收藏家协会',time:'06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记调研视察东阳市横店收藏家协会',time:'06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'}
-          ]
-        },
+        activekey:0
       }
     },
     components:{
-
+      vJian,vZhange
+    },
+    methods:{
+      changeCom(item,key){
+        this.activekey=key
+        this.title=item.url
+      }
     }
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
- .videos{
-   padding:0.1rem 0.2rem;
-   font-size: 0.28rem;
-   line-height: 0.46rem;
-   .aucHeader li{
-     margin-right: 0.3rem;
-   }
- }
+.Association{
+  padding:0.15rem;
+  ul{
+    width:100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    font-size: 0.28rem;
+    line-height: 0.48rem;
+    margin-bottom: 0.3rem;
+    li{
+      width:auto;
+      margin-right: 0.2rem;
+      &.active{
+        color: #bd2c00;
+        border-bottom: 1px solid #bd2c00;
+      }
+    }
+  }
+}
 
 </style>

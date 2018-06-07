@@ -3,6 +3,9 @@ const getters={
   popoverAlive: state => {
     return state.page.popoverAlive
   },
+  videoResult: state => {
+    return state.page.videoUrl
+  }
 }
 
 export default getters

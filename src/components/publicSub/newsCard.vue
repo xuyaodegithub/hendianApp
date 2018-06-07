@@ -4,7 +4,7 @@
       <h4>{{msg.title}}</h4>
     </div>
     <ul>
-      <li v-for="(item,index) in msg.item" :key="index" class="flex">
+      <li v-for="(item,index) in msg.item" :key="index" class="flex" @click="toDetial(item)">
        <div class="nleft flex">
          <p class="activeP">{{item.title}}</p>
          <p>{{item.time}}</p>
@@ -24,6 +24,11 @@
     data() {
       return {
 
+      }
+    },
+    methods:{
+      toDetial(val){
+        this.$router.push('/newsDetail')
       }
     }
   }

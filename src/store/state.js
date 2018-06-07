@@ -8,6 +8,10 @@ const state={
       title: '',
       SSSnum:''
     },
+    videoUrl:{
+      type:false,
+      url:''
+    },
   }
 }
 

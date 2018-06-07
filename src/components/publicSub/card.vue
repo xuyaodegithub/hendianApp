@@ -47,6 +47,8 @@
       width:100%;
       overflow-x: auto;
       white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      padding:0 0.15rem;
       li{
         display: inline-block;
         width:1.5rem;

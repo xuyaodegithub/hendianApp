@@ -10,6 +10,10 @@ const  mutations={
       state.page.popoverAlive.SSSnum = where[1];
     }
   },
+  SET_VIDEO_URL(state,url){
+    state.page.videoUrl.type=!state.page.videoUrl.type
+    state.page.videoUrl.url=url
+  }
 }
 
 export default mutations

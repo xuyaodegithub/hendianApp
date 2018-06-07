@@ -50,14 +50,27 @@
         line-height: 0.48rem;
       }
       p.pactive{
-        white-space: initial;
+        /*white-space: initial;*/
         overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+        /*text-overflow: ellipsis;*/
+        /*display: -webkit-box;*/
+        /*-webkit-line-clamp: 3;*/
+        /*-moz-line-clamp: 3;*/
+        /*-ms-line-clamp: 3;*/
+        /*-o-line-clamp: 3;*/
+        /*-webkit-box-orient: vertical;*/
         line-height: 0.42rem;
         padding-left: 0.15rem;
+        max-height:1.26rem;
+      }
+    p.pactive:after{
+      content:"...";
+      font-weight:bold;
+      position:absolute;
+      bottom:0;
+      right:0;
+      padding:0 20px 1px 45px;
+      background:url(http://newimg88.b0.upaiyun.com/newimg88/2014/09/ellipsis_bg.png) repeat-y;
       }
     }
     .img{

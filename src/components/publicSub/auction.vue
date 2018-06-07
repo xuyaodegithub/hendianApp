@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="auction flex" v-for="(item,index) in msg.item" :key="index">
+    <div class="auction flex" v-for="(item,index) in msg.item" :key="index" @click="toDetail(item,index)">
       <div class="title flex">
         <h4 class="over">{{item.title}}</h4>
         <p>{{item.time}}</p>
@@ -13,11 +13,20 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import { mapActions } from 'vuex'
   export default {
     props: ['msg'],
     name: 'auction',
     data() {
       return {}
+    },
+    methods:{
+      toDetail(item,key){
+        if(this.msg.type===3){
+          this.$store.commit('SET_VIDEO_URL',item.toUrl)
+        }
+      }
     }
   }
 </script>
@@ -38,6 +47,7 @@
       -o-flex-direction: column;
       flex-direction: column;
       justify-content: space-between;
+      width:55%;
       h4 {
         font-size: 0.32rem;
         line-height: 0.48rem;

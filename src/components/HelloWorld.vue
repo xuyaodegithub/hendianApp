@@ -30,17 +30,16 @@
       return {
         msg: [
           {title: '首页', urlRoute: '/'},
-          {title: '协会简介', urlRoute: ''},
+          {title: '协会简介', urlRoute: '/Association'},
           {title: '艺术文库', urlRoute: '/artStore'},
           {title: '名家风采', urlRoute: '/superstar'},
           {title: '拍卖', urlRoute: '/auction'},
           {title: '视频', urlRoute: '/videos'},
-          {title: '古玩市场', urlRoute: ''},
-          {title: '鉴定与评估', urlRoute: ''},
-          {title: '视频', urlRoute: ''},
-          {title: '通知公告', urlRoute: ''},
-          {title: '会员注册', urlRoute: ''},
-          {title: '联系我们', urlRoute: ''},
+          {title: '古玩市场', urlRoute: '/oldBack'},
+          {title: '鉴定与评估', urlRoute: '/evaluation'},
+          {title: '通知公告', urlRoute: '/tellAsk'},
+          {title: '会员注册', urlRoute: '/registered'},
+          {title: '联系我们', urlRoute: '/concasUs'},
         ],
         activeKey: 0
       }
@@ -109,6 +108,7 @@
     overflow-y: hidden;
     text-align: left;
     white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
   }
 
   li {
