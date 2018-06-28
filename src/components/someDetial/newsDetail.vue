@@ -1,19 +1,24 @@
 <template>
   <div class="newsDetail">
-    <div class="title">
-      <h4>{{newsList.title}}</h4>
-      <p>{{newsList.time}}</p>
-    </div>
-    <div class="img">
-      <img :src="item" alt="" v-for="item in newsList.img">
-    </div>
-    <div class="content">
-      <p v-for="item in newsList.content">{{item}}</p>
+    <!--<div class="title">-->
+      <!--<h4>{{newsList.title}}</h4>-->
+      <!--<p>{{newsList.time}}</p>-->
+    <!--</div>-->
+    <!--<div class="img">-->
+      <!--<img :src="item" alt="" v-for="item in newsList.img">-->
+    <!--</div>-->
+    <!--<div class="content">-->
+      <!--<p v-for="item in newsList.content">{{item}}</p>-->
+    <!--</div>-->
+    <div v-html="artsDetialsResult">
+
     </div>
   </div>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+  import { mapGetters } from 'vuex'
   export default {
     name: 'newsDetail',
     data() {
@@ -30,6 +35,11 @@
           ]
         },
       }
+    },
+    computed:{
+      ...mapGetters([
+        'artsDetialsResult'
+      ])
     }
   }
 </script>
@@ -37,8 +47,14 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .newsDetail {
-    text-align: left;
+    text-align: center;
     padding: 0.2rem;
+    white-space:normal;
+    word-wrap:break-word;
+    img{
+      display: block;
+      width:calc(100% - 0.2rem);
+    }
     .title{
       font-size: 0.32rem;
       line-height: 0.64rem;

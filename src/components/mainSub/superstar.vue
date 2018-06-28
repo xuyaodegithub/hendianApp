@@ -1,13 +1,13 @@
 <template>
   <div class="vSupstar">
-    <ul class="aucHeader flex">
-      <li v-for="(item,index) in tapBtn" :key="index" :class="{active : activekey===index}"
-          @click="changeSome(item,index)">
-        {{item.title}}
-      </li>
-    </ul>
+    <!--<ul class="aucHeader flex">-->
+      <!--<li v-for="(item,index) in tapBtn" :key="index" :class="{active : activekey===index}"-->
+          <!--@click="changeSome(item,index)">-->
+        <!--{{item.title}}-->
+      <!--</li>-->
+    <!--</ul>-->
     <div>
-      <v-supstar :msg="newsList"></v-supstar>
+      <v-supstar :msg="superpersonsResult.list"></v-supstar>
     </div>
   </div>
 </template>
@@ -22,84 +22,35 @@
     data() {
       return {
         activekey: 0,
-        tapBtn: [
-          {title: '全部', url: ''},
-          {title: '瓷器', url: ''},
-          {title: '玉器', url: ''},
-          {title: '字画', url: ''},
-          {title: '金属器', url: ''},
-          {title: '杂项', url: ''},
-        ],
-        newsList: {
-          title: '新闻动态',
-          type: 2,
-          item: [
-            {
-              title: '习近平总书记',
-              time: '2018-06-12',
-              toUrl: '',
-              content:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',
-              imgUrl: 'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
-            },
-            {
-              title: '习近平总书记',
-              time: '2018-06-12',
-              toUrl: '',
-              content:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',
-              imgUrl: 'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
-            },
-            {
-              title: '习近平总书记',
-              time: '2018-06-12',
-              toUrl: '',
-              content:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',
-              imgUrl: 'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
-            },
-            {
-              title: '习近平总书记',
-              time: '2018-06-12',
-              toUrl: '',
-              content:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',
-              imgUrl: 'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
-            },
-            {
-              title: '习近平总书记',
-              time: '2018-06-12',
-              toUrl: '',
-              content:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',
-              imgUrl: 'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
-            },
-            {
-              title: '习近平总书记',
-              time: '2018-06-12',
-              toUrl: '',
-              content:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',
-              imgUrl: 'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
-            },
-            {
-              title: '习近平总书记',
-              time: '2018-06-12',
-              toUrl: '',
-              content:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',
-              imgUrl: 'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
-            },
-            {
-              title: '习近平总书记',
-              time: '2018-06-12',
-              toUrl: '',
-              content:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',
-              imgUrl: 'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
-            }
-          ]
-        },
+        page:1,
+        rows:15
       }
+    },
+    computed:{
+      ...mapGetters([
+        'superpersonsResult','loading'
+      ])
     },
     components: {
       vSupstar
     },
+    mounted(){
+      this.$store.commit('SET_LOADING',1)
+      this.getsupList()
+    },
+    activated(){
+      this.$store.commit('SET_LOADING',1)
+    },
     methods: {
-      changeSome(item, key) {
-        this.activekey = key
+      ...mapActions([
+        'superpersonsActions'
+      ]),
+      getsupList(){
+        let data={
+          page:this.page,
+          limit:this.rows
+        }
+        this.superpersonsActions(data)
       }
     }
   }
@@ -108,7 +59,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .vSupstar {
-    padding: 0.1rem 0.2rem;
+    padding: 0.2rem 0.2rem;
     font-size: 0.28rem;
     line-height: 0.46rem;
     .aucHeader {

@@ -43,36 +43,51 @@ const router = new Router({
         {
           path: '/oldBack',
           name: '古玩市场',
-          component: () => import(/* webpackChunkName: "Association" */ '@/components/mainSub/oldBack')
+          component: () => import(/* webpackChunkName: "oldBack" */ '@/components/mainSub/oldBack')
         },
         {
           path: '/evaluation',
           name: '鉴定与评估',
-          component: () => import(/* webpackChunkName: "Association" */ '@/components/mainSub/evaluation')
+          component: () => import(/* webpackChunkName: "evaluation" */ '@/components/mainSub/evaluation')
         },
         {
           path: '/registered',
           name: '会员注册',
-          component: () => import(/* webpackChunkName: "Association" */ '@/components/mainSub/registered')
+          component: () => import(/* webpackChunkName: "registered" */ '@/components/mainSub/registered')
         },
         {
           path: '/concasUs',
           name: '联系我们',
-          component: () => import(/* webpackChunkName: "Association" */ '@/components/mainSub/concasUs')
+          component: () => import(/* webpackChunkName: "concasUs" */ '@/components/mainSub/concasUs')
         },
         {
           path: '/tellAsk',
           name: '通知公告',
-          component: () => import(/* webpackChunkName: "Association" */ '@/components/mainSub/tellAsk')
+          component: () => import(/* webpackChunkName: "tellAsk" */ '@/components/mainSub/tellAsk')
+        },
+        {
+          path: '/newsStatus',
+          name: '新闻动态',
+          component: () => import(/* webpackChunkName: "newsStatus" */ '@/components/mainSub/newsStatus')
         },
       ]
     },
     {
       path:'/newsDetail',
-      name:'新闻详情',
+      name:'详情',
       component: () => import(/* webpackChunkName: "newsDetail" */ '@/components/someDetial/newsDetail')
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {//路由切换时滚轮位置//scrollBehavior 方法接收 to 和 from 路由对象。第三个参数 savedPosition 当且仅当 popstate 导航 (通过浏览器的 前进/后退 按钮触发) 时才可用。
+    // return 期望滚动到哪个的位置
+    if (savedPosition) {
+      return savedPosition
+    } else if(to.name==='详情'){
+      return { x: 0, y:0 }
+    }else{
+      // return { x: 0, y:0 }
+    }
+  }
 })
 router.beforeEach((to,from,next)=> {
   document.title=to.name

@@ -1,16 +1,16 @@
 <template>
   <div class="news">
     <div class="title flex">
-      <h4>{{title}}</h4>
+      <h4>{{msg.title}}</h4>
     </div>
     <ul>
-      <li v-for="(item,index) in msg" :key="index" class="flex" @click="toDetial(item)">
+      <li v-for="(item,index) in msg.item" :key="index" class="flex" @click="toDetial(item)">
        <div class="nleft flex">
          <p class="activeP">{{item.title}}</p>
-         <p>{{item.publishTime | changeTime}}</p>
+         <p>{{item.time}}</p>
        </div>
         <div class="nright">
-          <img :src="item.titleImg" alt="">
+          <img :src="item.imgUrl" alt="">
         </div>
       </li>
     </ul>
@@ -19,7 +19,7 @@
 
 <script>
   export default {
-    props: ['msg','title'],
+    props: ['msg'],
     name: 'news',
     data() {
       return {
@@ -29,7 +29,6 @@
     methods:{
       toDetial(val){
         this.$router.push('/newsDetail')
-        this.$store.commit('ARTS_DETIALS_CHANGE',val.content)
       }
     }
   }
@@ -78,7 +77,7 @@
       img{
         display: block;
         width:100%;
-        height:2rem;
+        height:1.4rem;
       }
     }
   }

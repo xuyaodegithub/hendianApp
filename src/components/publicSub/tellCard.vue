@@ -1,13 +1,13 @@
 <template>
   <div class="card">
     <div class="title flex">
-      <h4>{{msg.title}}</h4>
-      <span>更多</span>
+      <h4>{{title}}</h4>
+      <span @click="toMove()">更多</span>
     </div>
     <ul>
-      <li v-for="(item,index) in msg.item" :key="index" class="flex">
+      <li v-for="(item,index) in msg" :key="index" class="flex"  @click="todetial(item)">
         <p class="over">{{item.title}}</p>
-        <p>{{item.time}}</p>
+        <p>{{item.publishTime | changeTime}}</p>
       </li>
     </ul>
   </div>
@@ -15,11 +15,20 @@
 
 <script>
   export default {
-    props: ['msg'],
+    props: ['msg','title'],
     name: 'tellCard',
     data() {
       return {
 
+      }
+    },
+    methods:{
+      todetial(item){
+        this.$router.push('/newsDetail')
+        this.$store.commit('ARTS_DETIALS_CHANGE',item.content)
+      },
+      toMove(){
+        this.$router.push('/tellAsk')
       }
     }
   }
@@ -45,13 +54,13 @@
       overflow-x: auto;
       white-space: nowrap;
       li{
-        padding:0 0.15rem;
+        padding:0.1rem 0.15rem;
         border-bottom: 1px solid #999999;
         justify-content: space-between;
         font-size: 0.28rem;
         line-height: 0.48rem;
         p:first-child{
-          width:70%;
+          width:60%;
         }
         p:last-child{
           flex:1;

@@ -7,8 +7,8 @@
           <p class="over">{{item.title}}</p>
           <p>{{item.time}}</p>
         </li>
-        <li v-if="!loading">
-          加载中...
+        <li v-if="!loading && newsTell.item.length>0">
+          上拉加载更多...
         </li>
       </ul>
     <div  v-if="loading">已经到底啦~0~</div>

@@ -6,7 +6,7 @@
       </li>
     </ul>
     <div>
-      <v-auction :msg="newsList"></v-auction>
+      <vpaimai :msg="whichList.list" :type="type"></vpaimai>
     </div>
   </div>
 </template>
@@ -14,39 +14,64 @@
 <script>
   import { mapGetters } from 'vuex'
   import { mapActions } from 'vuex'
-  import vAuction from '../publicSub/auction.vue'
+  import vpaimai from '../publicSub/paimai.vue'
   export default {
     name: 'auction',
     data() {
       return {
         activekey: 0,
+        type:1,
+        page:1,
+        rows:15,
         tapBtn:[
           {title:'拍品预告',url:''},
           {title:'当前拍品',url:''},
           {title:'往期拍卖',url:''},
         ],
-        newsList:{
-          title:'新闻动态',
-          type:1,
-          item:[
-            {title:'习近平总书记',time:'2018-06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记',time:'2018-06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记',time:'2018-06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记',time:'2018-06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记',time:'2018-06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记',time:'2018-06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记',time:'2018-06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'},
-            {title:'习近平总书记',time:'2018-06-12',toUrl:'',imgUrl:'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg'}
-          ]
-        },
       }
     },
     components:{
-      vAuction
+      vpaimai
+    },
+    computed: {
+      ...mapGetters([
+        'auctionsProductbefoeResult','auctionsProductnowResult','auctionsProductagoResult'
+      ]),
+      whichList(){
+        if(this.type===1){
+          return this.auctionsProductbefoeResult
+        }else if(this.type===2){
+          return this.auctionsProductnowResult
+        }else{
+          return this.auctionsProductagoResult
+        }
+      }
+    },
+    mounted(){
+      this.getListfff()
+    },
+    activated(){
+      this.$store.commit('SET_LOADING',1)
     },
     methods: {
+      ...mapActions([
+        'auctionsProductActions'
+      ]),
       changeSome(item, key) {
+        this.$store.commit('SET_LOADING',1)
         this.activekey = key
+        this.type=key+1
+        this.page=1
+        this.rows=15
+        this.getListfff()
+      },
+      getListfff(){
+        let data={
+          page:this.page,
+          limit:this.rows,
+          type:this.type
+        }
+        this.auctionsProductActions(data)
       }
     }
   }

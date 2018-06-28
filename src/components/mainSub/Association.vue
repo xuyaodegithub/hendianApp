@@ -16,6 +16,9 @@
   import { mapActions } from 'vuex'
   import vJian from '../sonSub/jieshao.vue'
   import vZhange from '../sonSub/zhangcheng.vue'
+  import vZhuanjia from '../sonSub/zhuanjia.vue'
+  import vzuzhi from '../sonSub/zuzhi.vue'
+  import vLishi from '../sonSub/lishi.vue'
   export default {
     name: 'Association',
     data() {
@@ -24,15 +27,15 @@
         bleft: [
           {title: '协会简介', url: 'vJian'},
           {title: '协会章程', url: 'vZhange'},
-          {title: '组织机构', url: 'vJian'},
-          {title: '专家顾问委员会', url: 'vZhange'},
-          {title: '理事会', url: 'vJian'}
+          {title: '组织机构', url: 'vzuzhi'},
+          {title: '专家顾问委员会', url: 'vZhuanjia'},
+          {title: '理事会', url: 'vLishi'}
         ],
         activekey:0
       }
     },
     components:{
-      vJian,vZhange
+      vJian,vZhange,vZhuanjia,vzuzhi,vLishi
     },
     methods:{
       changeCom(item,key){

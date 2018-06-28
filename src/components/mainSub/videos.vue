@@ -8,7 +8,7 @@
         </li>
       </ul>
       <div>
-        <v-auction :msg="newsList"></v-auction>
+        <v-video :msg="newsList"></v-video>
       </div>
     </div>
     <div class="showAlert" @click="removeVideo()" v-if="videoResult.type"></div>
@@ -25,12 +25,14 @@
 <script>
   import {mapGetters} from 'vuex'
   import {mapActions} from 'vuex'
-  import vAuction from '../publicSub/auction.vue'
+  import vVideo from '../publicSub/videosCard.vue'
 
   export default {
     name: 'videos',
     data() {
       return {
+        page:1,
+        rows:10,
         trueOfalse: true,
         activekey: 0,
         msg: false,
@@ -98,7 +100,7 @@
       ])
     },
     components: {
-      vAuction
+      vVideo
     },
     methods: {
       chanegContent(item, key) {
@@ -119,6 +121,14 @@
       },
       removeVideo(){
         this.$store.commit('SET_VIDEO_URL')
+      },
+      getVideoList(){
+        let data1={
+          page:1,
+          limit:6,
+          type:1
+        }
+        this.videosSeachActions(data1)
       }
     }
   }

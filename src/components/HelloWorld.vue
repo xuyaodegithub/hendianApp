@@ -9,7 +9,7 @@
     </div>
     <div class="navList">
       <ul class="flexx">
-        <li v-for="(item,index) in msg" :key="index" :class="{active : activeKey===index}"
+        <li v-for="(item,index) in msg" :key="index" :class="{active : colorNum===index}"
             @click="changeRouter(item,index)">
           {{item.title}}
         </li>
@@ -31,22 +31,53 @@
         msg: [
           {title: '首页', urlRoute: '/'},
           {title: '协会简介', urlRoute: '/Association'},
+          {title: '加入协会', urlRoute: '/registered'},
           {title: '艺术文库', urlRoute: '/artStore'},
           {title: '名家风采', urlRoute: '/superstar'},
           {title: '拍卖', urlRoute: '/auction'},
           {title: '视频', urlRoute: '/videos'},
           {title: '古玩市场', urlRoute: '/oldBack'},
           {title: '鉴定与评估', urlRoute: '/evaluation'},
+          {title: '新闻动态', urlRoute: '/newsStatus'},
           {title: '通知公告', urlRoute: '/tellAsk'},
-          {title: '会员注册', urlRoute: '/registered'},
           {title: '联系我们', urlRoute: '/concasUs'},
         ],
         activeKey: 0
       }
     },
+    computed:{
+      colorNum(){
+        if(this.$route.path==='/'){
+          return 0
+        }else if(this.$route.path==='/Association'){
+          return 1
+        }else if(this.$route.path==='/registered'){
+          return 2
+        }else if(this.$route.path==='/artStore'){
+          return 3
+        }else if(this.$route.path==='/superstar'){
+          return 4
+        }else if(this.$route.path==='/auction'){
+          return 5
+        }else if(this.$route.path==='/videos'){
+          return 6
+        }else if(this.$route.path==='/oldBack'){
+          return 7
+        }else if(this.$route.path==='/evaluation'){
+          return 8
+        }else if(this.$route.path==='/newsStatus'){
+          return 9
+        }else if(this.$route.path==='/tellAsk'){
+          return 10
+        }else if(this.$route.path==='/concasUs'){
+          return 11
+        }else{
+
+        }
+      }
+    },
     methods: {
       changeRouter(val, key) {
-        this.activeKey = key
         this.$router.push(val.urlRoute)
       }
     }

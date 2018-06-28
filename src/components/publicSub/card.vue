@@ -1,12 +1,12 @@
 <template>
   <div class="card">
     <div class="title flex">
-      <h4>{{msg.title}}</h4>
-      <span>更多</span>
+      <h4>{{title}}</h4>
+      <span @click="toMove()">更多</span>
     </div>
     <ul>
-      <li v-for="(item,index) in msg.item" :key="index">
-        <img :src="item.imgUrl" alt="">
+      <li v-for="(item,index) in msg" :key="index" @click="toDetial(item)">
+        <img :src="item.titleImg" alt="">
       </li>
     </ul>
   </div>
@@ -14,7 +14,7 @@
 
 <script>
   export default {
-    props: ['msg'],
+    props: ['msg','title','type'],
     name: 'card',
     data() {
       return {
@@ -23,6 +23,21 @@
           'https://o3e85j0cv.qnssl.com/waterway-107810__340.jpg',
           'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'//'static/safe0.png','static/yue.png'
         ]
+      }
+    },
+    methods:{
+      toDetial(item){
+        this.$router.push('/newsDetail')
+        this.$store.commit('ARTS_DETIALS_CHANGE',item.content)
+      },
+      toMove(){
+        if(this.type===2){
+          this.$router.push('/artStore')
+        }else if(this.type===1){
+          this.$router.push('/superstar')
+        }else{
+           this.$router.push('/auction')
+        }
       }
     }
   }
