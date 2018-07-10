@@ -1,10 +1,12 @@
 <template>
   <div class="concasUs flex">
     <div>
-      <p>浙江省东阳市横店镇231号</p>
-      <p>tel：0579-86642183</p>
+      <h4>联系人：</h4>
+      <p>慈琴琴：&nbsp&nbsp 18767926188</p>
+      <p>赵启洪：&nbsp&nbsp 15325915070</p>
+      <p>地址：&nbsp&nbsp 横店古名居小南门</p>
     </div>
-    <div>
+    <div style="margin-top: 0.2rem;">
       <img :src="imgurl" alt="">
       <p>用微信扫一扫</p>
     </div>
@@ -19,7 +21,7 @@
     name: 'concasUs',
     data() {
       return {
-        imgurl: 'static/sssss.jpg'
+        imgurl: 'static/ewmll.jpg'
       }
     },
     components: {},
@@ -33,6 +35,7 @@
   padding:0.15rem 0.3rem;
   font-size: 0.28rem;
   line-height: 0.52rem;
+  text-align: left;
   & > div:first-child{
     width:60%;
     margin-top: 0.5rem;

@@ -26,7 +26,12 @@ const mutations = {
     state.editor.twoNewsMM.limit = data.limit
   },
   GET_TWO_NEWS(state, res) {
-    state.page.twoNewsResult = res.data
+    if(res.data.list.length===state.page.twoNewsResult.list.length) {
+      state.page.loading = true
+      state.page.twoNewsResult = res.data
+    }else{
+      state.page.twoNewsResult = res.data
+    }
   },
   //新闻动态
   SET_THREE_NEWS(state, data) {
@@ -35,8 +40,12 @@ const mutations = {
     state.editor.threeNewsMM.limit = data.limit
   },
   GET_THREE_NEWS(state, res) {
-    state.page.threeNewsResult = res.data
-
+    if(res.data.list.length===state.page.threeNewsResult.list.length) {
+      state.page.loading = true
+      state.page.threeNewsResult = res.data
+    }else{
+      state.page.threeNewsResult = res.data
+    }
   },
   //艺术文库
   SET_ARTS_BOOK(state, data) {
@@ -121,16 +130,36 @@ const mutations = {
     state.editor.videosSeachMM.type = data.type
   },
   GET_VIDEOS_SEACH1(state, res) {
-    state.page.videosHengResult=res.data
+    if(res.data.list.length=== state.page.videosHengResult.list.length) {
+      state.page.loading = true
+      state.page.videosHengResult=res.data
+    }else{
+      state.page.videosHengResult=res.data
+    }
   },
   GET_VIDEOS_SEACH2(state, res) {
-    state.page.videosMovieResult=res.data
+    if(res.data.list.length=== state.page.videosMovieResult.list.length) {
+      state.page.loading = true
+      state.page.videosMovieResult=res.data
+    }else{
+      state.page.videosMovieResult=res.data
+    }
   },
   GET_VIDEOS_SEACH3(state, res) {
-    state.page.videosYuanResult=res.data
+    if(res.data.list.length=== state.page.videosYuanResult.list.length) {
+      state.page.loading = true
+      state.page.videosYuanResult=res.data
+    }else{
+      state.page.videosYuanResult=res.data
+    }
   },
   GET_VIDEOS_SEACH4(state, res) {
-    state.page.videosactiveResult=res.data
+    if(res.data.list.length=== state.page.videosactiveResult.list.length) {
+      state.page.loading = true
+      state.page.videosactiveResult=res.data
+    }else{
+      state.page.videosactiveResult=res.data
+    }
   },
   //视频详情
   GET_VIDEO_DETIAL(state,res){

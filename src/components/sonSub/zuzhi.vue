@@ -3,6 +3,15 @@
       <h4>组织机构</h4>
       <div class="btext">
         <p>
+          <i>中华圆新园收藏家协会</i>
+          <i>东阳横店收藏家协会</i>
+        </p>
+        <br>
+        <p>
+          协会会员代表大会
+        </p>
+        <br>
+        <p>
           理事会
         </p>
         <br>
@@ -83,6 +92,7 @@
         font-size: 0.32rem;
         border-bottom: 1px solid #999999;
         margin-bottom: 0.2rem;
+        text-align: left;
       }
       .btext{
         font-size: 0.28rem;

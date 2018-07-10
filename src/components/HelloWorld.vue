@@ -4,7 +4,10 @@
       <h4>横店收藏家协会</h4>
       <div class="Hright border-r flex">
         <i class="icon iconfont icon-unie036"></i>
-        <input type="text" placeholder="请输入内容" class="seachI">
+        <form action="javascript:return true;">
+          <input type="search" placeholder="请输入内容" class="seachI" @keyup="seachList($event)" v-model="isInput"
+                 ref="oinput">
+        </form>
       </div>
     </div>
     <div class="navList">
@@ -24,10 +27,15 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
+  import {mapActions} from 'vuex'
+  import {Base64} from 'js-base64';
+
   export default {
     name: 'HelloWorld',
     data() {
       return {
+        isInput: '',
         msg: [
           {title: '首页', urlRoute: '/'},
           {title: '协会简介', urlRoute: '/Association'},
@@ -45,40 +53,54 @@
         activeKey: 0
       }
     },
-    computed:{
-      colorNum(){
-        if(this.$route.path==='/'){
+    computed: {
+      colorNum() {
+        if (this.$route.path === '/') {
           return 0
-        }else if(this.$route.path==='/Association'){
+        } else if (this.$route.path === '/Association') {
           return 1
-        }else if(this.$route.path==='/registered'){
+        } else if (this.$route.path === '/registered') {
           return 2
-        }else if(this.$route.path==='/artStore'){
+        } else if (this.$route.path === '/artStore') {
           return 3
-        }else if(this.$route.path==='/superstar'){
+        } else if (this.$route.path === '/superstar') {
           return 4
-        }else if(this.$route.path==='/auction'){
+        } else if (this.$route.path === '/auction') {
           return 5
-        }else if(this.$route.path==='/videos'){
+        } else if (this.$route.path === '/videos') {
           return 6
-        }else if(this.$route.path==='/oldBack'){
+        } else if (this.$route.path === '/oldBack') {
           return 7
-        }else if(this.$route.path==='/evaluation'){
+        } else if (this.$route.path === '/evaluation') {
           return 8
-        }else if(this.$route.path==='/newsStatus'){
+        } else if (this.$route.path === '/newsStatus') {
           return 9
-        }else if(this.$route.path==='/tellAsk'){
+        } else if (this.$route.path === '/tellAsk') {
           return 10
-        }else if(this.$route.path==='/concasUs'){
+        } else if (this.$route.path === '/concasUs') {
           return 11
-        }else{
+        } else {
 
         }
       }
     },
     methods: {
+      ...mapActions([
+        'seachWordsActions'
+      ]),
       changeRouter(val, key) {
         this.$router.push(val.urlRoute)
+      },
+      seachList(ev) {
+        let evl = ev || window.event
+        let data = {
+          keyword: Base64.encode(this.isInput)
+        }
+        if (evl.keyCode == 13) {
+          this.$refs.oinput.blur()
+          this.seachWordsActions(data)
+          this.$router.push('/seachList')
+        }
       }
     }
   }

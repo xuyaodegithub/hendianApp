@@ -2,12 +2,13 @@
   <div class="tellAsk ">
       <ul v-infinite-scroll="loadMore"
           infinite-scroll-disabled="loading"
-          infinite-scroll-distance="10">
-        <li v-for="(item,index) in newsTell.item" :key="index"  class="flex">
+          infinite-scroll-distance="10"
+          infinite-scroll-immediate-check="false" v-if=" twoNewsResult.list.length>0">
+        <li v-for="(item,index) in twoNewsResult.list" :key="index"  class="flex">
           <p class="over">{{item.title}}</p>
-          <p>{{item.time}}</p>
+          <p>{{item.publishTime | changeTime}}</p>
         </li>
-        <li v-if="!loading && newsTell.item.length>0">
+        <li v-if="!loading">
           上拉加载更多...
         </li>
       </ul>
@@ -23,57 +24,43 @@
     name: 'tellAsk',
     data() {
       return {
-        loading:false,
-        imgurl: 'static/sssss.jpg',
-        num:0,
-        newsTell:{
-          title:'通知公告',
-          item:[
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''},
-            {title:'考古发掘品移交管考古发掘品移交管考古发掘品移交管考古发掘品移交管',time:'06-12',toUrl:''}
-          ]
-        },
-        list:[
-          {title:'1111111111111111',time:'06-12',toUrl:''},
-          {title:'2222222222222222222',time:'06-12',toUrl:''},
-          {title:'333333333333333333',time:'06-12',toUrl:''},
-          {title:'444444444444444444',time:'06-12',toUrl:''},
-          {title:'5555555555555555555',time:'06-12',toUrl:''},
-        ]
+        page:1,
+        rows:15,
+        type:2
       }
     },
     components: {},
+    computed:{
+      ...mapGetters([
+        'loading','twoNewsResult'
+      ]),
+    },
+    activated(){
+      this.$store.commit('SET_LOADING',1)
+    },
+    mounted(){
+      this.getNewsList()
+    },
     methods: {
+      ...mapActions([
+        'oneNewsActions'
+      ]),
+      toDetial(val){
+        this.$router.push('/newsDetail')
+        this.$store.commit('ARTS_DETIALS_CHANGE',val.content)
+      },
+      getNewsList(){
+        let data = {
+          "page": this.page,
+          "limit": this.rows,
+          "type": this.type
+        }
+        this.oneNewsActions(data)
+      },
       loadMore() {
-        let _self=this
-        this.num++
-//        this.loading = true;
-        setTimeout(() => {
-          if(_self.num>=6){
-            _self.loading=true
-          }else{
-            _self.newsTell.item=_self.newsTell.item.concat(_self.list)
-          }
-        }, 1000);
+        this.rows += 15
+        let _self = this
+        _self.getNewsList()
       }
     }
   }
@@ -84,7 +71,7 @@
 .tellAsk{
   padding:0.3rem 0 0 0;
   font-size:0.32rem;
-  line-height: 0.56rem;
+  line-height: 0.8rem;
   li:last-child{
     text-align: center;
   }

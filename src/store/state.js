@@ -85,9 +85,13 @@ const state = {
     //政策法规
     oneNewsResult: '',
     //通知公告
-    twoNewsResult: '',
+    twoNewsResult: {
+      list:[]
+    },
     //新闻动态
-    threeNewsResult: '',
+    threeNewsResult: {
+      list:[]
+    },
     //艺术文库
     artsBookResult: {list:[]},
     //  //各种详情

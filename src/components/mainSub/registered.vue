@@ -7,7 +7,7 @@
       <mt-field label="身份证" placeholder="请输入内容" v-model="isShen"></mt-field>
       <mt-field label="联系方式" placeholder="请输入内容" type="tel" v-model="isPhone" :attr="{ maxlength: 11 }"></mt-field>
       <mt-field label="家庭住址" placeholder="请输入内容" type="text" v-model="isAdress"></mt-field>
-      <mt-field label="申请职务" placeholder="请选择职位" type="text" v-model="isObj" @click.native="alertSelect()" disabled></mt-field>
+      <mt-field label="申请职务" placeholder="请选择职位" type="text" v-model="isObj" @click.native="alertSelect()" disabled style="color:#000000;"></mt-field>
       <!--<select name="" id="select">-->
       <!--<option value="会员" selected></option>-->
       <!--<option value="理事"></option>-->
@@ -18,7 +18,7 @@
       <mt-field label="单位名称" placeholder="请输入内容" type="text" v-model="isAdd"></mt-field>
       <div>
         <img :src="imgurl" alt="">
-        <p>请用支付宝扫二维码缴纳会费</p>
+        <p>请用支付宝或微信扫二维码缴纳会费</p>
         <p>注意：转账时请备注电话号码以及单位信息</p>
       </div>
     </div>
@@ -155,7 +155,7 @@
             loginName: Base64.encode(this.isNumber)
 
           }
-          if (!data.name || !data.cardNo || !data.company || !data.mobile || !data.address || !data.job || !data.passwork) {
+          if (!this.isName.trim() || !data.cardNo || !data.company || !data.mobile || !data.address || !data.job || !data.passwork) {
 //            this.$message({
 //              message: '请把信息填写完整',
 //              type: "error"

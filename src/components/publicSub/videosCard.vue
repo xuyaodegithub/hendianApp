@@ -3,7 +3,7 @@
        infinite-scroll-disabled="loading"
        infinite-scroll-distance="10"
        infinite-scroll-immediate-check="false">
-    <div class="auction flex" v-for="(item,index) in msg" :key="index" @click="toDetail(item,index)">
+    <div class="auction flex" v-for="(item,index) in seachmsg" :key="index" @click="toDetail(item,index)">
       <div class="title flex">
         <h4 class="over">{{item.title}}</h4>
         <p>{{item.publishTime | changeTime}}</p>
@@ -12,7 +12,7 @@
         <img :src="item.titleImg" alt="">
       </div>
     </div>
-    <div v-if="!loading  && msg.length>0" style="font-size: 0.28rem;text-align: center;line-height: 0.8rem">
+    <div v-if="!loading  && seachmsg.length>0" style="font-size: 0.28rem;text-align: center;line-height: 0.8rem">
       上拉加载更多...
     </div>
     <div v-if="loading" style="font-size: 0.28rem;text-align: center;line-height: 0.8rem">已经到底啦~0~</div>
@@ -24,35 +24,39 @@
   import {mapActions} from 'vuex'
 
   export default {
-    props: ['msg', 'type'],
+    props: ['seachmsg', 'type'],
     name: 'pamai',
     data() {
       return {
         currentPage4: 1,
-        rows: 15,
+        rows: 10,
       }
     },
     computed: {
       ...mapGetters([
-        'loading'
+        'loading', 'videosHengResult', 'videosMovieResult', 'videosYuanResult', 'videosactiveResult'
       ])
     },
     watch: {
       type: function (newVal, oldVal) {
         this.currentPage4 = 1
-        this.rows = 15
+        this.rows = 10
       }
     },
     methods: {
       ...mapActions([
-        'auctionsProductActions'
+        'videosSeachActions'
       ]),
       toDetail(item, key) {
-        this.$router.push('/newsDetail')
-        this.$store.commit('ARTS_DETIALS_CHANGE', item.content)
+        let data = {
+          type: true,
+          url: item.videoUrl,
+          imgUrl: item.titleImg
+        }
+        this.$emit('to-parents', data)
       },
       loadMore() {
-        this.rows += 15
+        this.rows += 10
         let _self = this
         _self.getsomeLsit()
 //        setTimeout(function(){
@@ -75,7 +79,7 @@
           "limit": this.rows,
           "type": this.type
         }
-        this.auctionsProductActions(data)
+        this.videosSeachActions(data)
       }
     }
   }
