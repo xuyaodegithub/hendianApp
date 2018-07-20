@@ -6,7 +6,7 @@
     <div class="auction flex" v-for="(item,index) in msg" :key="index" @click="toDetial(item)">
       <div class="title flex">
         <h4 class="over">{{item.title}}</h4>
-        <p class="pactive">{{item.content}}</p>
+        <!--<p class="pactive">{{item.content}}</p>-->
         <p>{{item.publishTime | changeTime}}</p>
       </div>
       <div class="img">

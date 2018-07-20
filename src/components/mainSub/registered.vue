@@ -16,20 +16,27 @@
       <!--<option value="副会长"></option>-->
       <!--</select>-->
       <mt-field label="单位名称" placeholder="请输入内容" type="text" v-model="isAdd"></mt-field>
+      <mt-field label="介绍人" placeholder="请输入内容" type="text" v-model="promoters"></mt-field>
+      <mt-field label="介绍人联系方式" placeholder="请输入内容" type="text" v-model="promotersPhone"></mt-field>
+      <mt-field label="协会拓展人" placeholder="请输入内容" type="text" v-model="introducer"></mt-field>
       <div>
         <img :src="imgurl" alt="">
         <p>请用支付宝或微信扫二维码缴纳会费</p>
         <p>注意：转账时请备注电话号码以及单位信息</p>
       </div>
     </div>
-    <div class="alertShow" v-if="isShow">
+   <!-- <div class="alertShow" v-if="isShow">
       <div v-for="(item,index) in options" @click="choseObj(item)">
         {{item.value}}
       </div>
     </div>
     <div class="zhezhao" v-if="isShow" @click="close()">
 
-    </div>
+    </div>-->
+    <mt-actionsheet
+      :actions="actions"
+      v-model="isShow">
+    </mt-actionsheet>
     <mt-button type="primary" size="small" @click.native="handleClick" :disabled="startTime>0">提交注册
       <i v-if="startTime>0">({{startTime}})</i>
     </mt-button>
@@ -57,6 +64,16 @@
         isAdd: '',
         imgurl: 'static/money.jpg',
         startTime:0,
+        introducer:'',
+        promotersPhone:'',
+        promoters:'',
+        actions:[
+          {name:'会员',method:this.tochose},
+          {name:'理事',method:this.tochose},
+          {name:'常务理事',method:this.tochose},
+          {name:'理事单位',method:this.tochose},
+          {name:'副会长',method:this.tochose},
+        ],
         options: [{
           value: '会员',
           label: '会员'
@@ -85,11 +102,17 @@
       this.isPhone=''
       this.isAdress=''
       this.isObj=''
+      this.promoters=''
+      this.introducer=''
+      this.promotersPhone=''
     },
     methods: {
       ...mapActions([
         'joinusAction'
         ]),
+      tochose(val){
+        this.isObj=val.name
+      },
       handleClick() {
         let reg = /[A-Za-z0-9]{6,16}/
         let _self = this
@@ -152,8 +175,10 @@
             job: Base64.encode(this.isObj),
             //  job:this.isObj.toBase64(),
             passwork: Base64.encode(this.isPassword),
-            loginName: Base64.encode(this.isNumber)
-
+            loginName: Base64.encode(this.isNumber),
+            introducer:Base64.encode(this.introducer),
+            promoters:Base64.encode(this.promoters),
+            promotersPhone:Base64.encode(this.promotersPhone),
           }
           if (!this.isName.trim() || !data.cardNo || !data.company || !data.mobile || !data.address || !data.job || !data.passwork) {
 //            this.$message({
@@ -248,6 +273,7 @@
     background: #666666;
     color: #ffffff;
     z-index: 1000;
+    transition: all 0.5s linear;
   }
   .zhezhao{
     position: fixed;

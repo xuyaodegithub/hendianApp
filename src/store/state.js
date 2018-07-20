@@ -66,7 +66,10 @@ const state = {
       address: '',
       job: '',
       loginName:'',
-      passwork:''
+      passwork:'',
+      promoters:'',
+      promotersPhone:'',
+      introducer:''
     },
     //搜索
     seachWordsMM: {
