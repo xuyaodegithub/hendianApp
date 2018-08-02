@@ -8,6 +8,7 @@
       <mt-field label="联系方式" placeholder="请输入内容" type="tel" v-model="isPhone" :attr="{ maxlength: 11 }"></mt-field>
       <mt-field label="家庭住址" placeholder="请输入内容" type="text" v-model="isAdress"></mt-field>
       <mt-field label="申请职务" placeholder="请选择职位" type="text" v-model="isObj" @click.native="alertSelect()" disabled style="color:#000000;"></mt-field>
+      <mt-field label="藏品门类" placeholder="请选择职位" type="text" v-model="isClassCP" @click.native="alertSelect2()" disabled style="color:#000000;"></mt-field>
       <!--<select name="" id="select">-->
       <!--<option value="会员" selected></option>-->
       <!--<option value="理事"></option>-->
@@ -37,6 +38,10 @@
       :actions="actions"
       v-model="isShow">
     </mt-actionsheet>
+    <mt-actionsheet
+      :actions="actions2"
+      v-model="isShow2">
+    </mt-actionsheet>
     <mt-button type="primary" size="small" @click.native="handleClick" :disabled="startTime>0">提交注册
       <i v-if="startTime>0">({{startTime}})</i>
     </mt-button>
@@ -54,6 +59,7 @@
       return {
         isNumber: '',
         isShow:false,
+        isShow2:false,
         isPassword: '',
         company: '',
         isName: '',
@@ -61,6 +67,7 @@
         isPhone: '',
         isAdress: '',
         isObj: '',
+        isClassCP:'',
         isAdd: '',
         imgurl: 'static/money.jpg',
         startTime:0,
@@ -73,6 +80,15 @@
           {name:'常务理事',method:this.tochose},
           {name:'理事单位',method:this.tochose},
           {name:'副会长',method:this.tochose},
+        ],
+        actions2:[
+          {name:'瓷器',method:this.tochose2},
+          {name:'字画',method:this.tochose2},
+          {name:'珠宝玉器',method:this.tochose2},
+          {name:'金属器',method:this.tochose2},
+          {name:'钱币',method:this.tochose2},
+          {name:'宗教艺术',method:this.tochose2},
+          {name:'杂项',method:this.tochose2},
         ],
         options: [{
           value: '会员',
@@ -112,6 +128,9 @@
         ]),
       tochose(val){
         this.isObj=val.name
+      },
+      tochose2(val){
+        this.isClassCP=val.name
       },
       handleClick() {
         let reg = /[A-Za-z0-9]{6,16}/
@@ -179,8 +198,9 @@
             introducer:Base64.encode(this.introducer),
             promoters:Base64.encode(this.promoters),
             promotersPhone:Base64.encode(this.promotersPhone),
+            category:Base64.encode(this.isClassCP),
           }
-          if (!this.isName.trim() || !data.cardNo || !data.company || !data.mobile || !data.address || !data.job || !data.passwork) {
+          if (!this.isName.trim() || !data.cardNo || !data.company || !data.mobile || !data.address || !data.job || !data.passwork  || !data.category) {
 //            this.$message({
 //              message: '请把信息填写完整',
 //              type: "error"
@@ -218,6 +238,9 @@
         }
       },
       alertSelect() {
+        this.isShow=true
+      },
+      alertSelect2() {
         this.isShow=true
       },
       choseObj(val){

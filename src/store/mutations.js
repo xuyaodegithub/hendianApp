@@ -182,6 +182,7 @@ const mutations = {
     state.editor.joinusMM.introducer=data.introducer
     state.editor.joinusMM.promotersPhone=data.promotersPhone
     state.editor.joinusMM.promoters=data.promoters
+    state.editor.joinusMM.category=data.category
   },
   //seach
   SET_SEACH_WORDS(state,data){

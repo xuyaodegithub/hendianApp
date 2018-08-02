@@ -69,7 +69,8 @@ const state = {
       passwork:'',
       promoters:'',
       promotersPhone:'',
-      introducer:''
+      introducer:'',
+      category:''
     },
     //搜索
     seachWordsMM: {
