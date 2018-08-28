@@ -1,9 +1,9 @@
 <template>
     <div class="zhang">
-      <h4>协会章程</h4>
+      <h4>联系地址</h4>
       <div class="btext">
-            <h5>中华圆明新园收藏家协会</h5>
-        <div>东阳横店收藏家协会</div>
+            <h5>东阳横店收藏家协会</h5>
+       <!-- <div>东阳横店收藏家协会</div>
         <p class="te">章程</p>
         <p class="te">第一章　总　则</p>
         <p>第一条　名称：中华圆明新园收藏家协会、东阳横店收藏家协会。</p>
@@ -62,8 +62,11 @@
         <p class="te">第五章　终止程序</p>
         <p>第十七条    本协会终止之日，协会将发布终止公告，并通知会员的相关权利和义务即时自行终止。</p>
         <p class="te">第六章　附则</p>
-        <p>第十八条 本章程在法律范围内解释权归中华圆明新园收藏家协会、东阳横店收藏家协会所有。</p>
-                                                           　　 　　
+        <p>第十八条 本章程在法律范围内解释权归中华圆明新园收藏家协会、东阳横店收藏家协会所有。</p>-->
+        <p>邮编：322118</p>　　 　　
+        <p>联系电话 :0579-86776930 &nbsp&nbsp&nbsp0579-86566338</p>　　 　　
+        <p>联系地址 : 浙江省东阳市横店镇古民居小南门</p>　　 　　
+        <p>网址 : www.hdscjxh.com</p>　　 　　                                     　　 　　
       </div>
     </div>
 </template>
@@ -114,10 +117,6 @@
           font-weight: 600;
           text-align: center;
           margin-bottom: 0.15rem;
-        }
-        & > div{
-          font-weight: 600;
-          text-align: center;
         }
         p{
           padding:0 0.2rem;

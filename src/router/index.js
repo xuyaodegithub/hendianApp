@@ -13,7 +13,10 @@ const router = new Router({
         {
           path: '',
           name: '首页',
-          component: () => import(/* webpackChunkName: "indexF" */ '@/components/mainSub/indexF')
+          component: () => import(/* webpackChunkName: "indexF" */ '@/components/mainSub/indexF'),
+          // beforeEnter:( to, from, next)=>{//路由独享的守卫
+          //
+          // }
         },
         {
           path: '/auction',
@@ -98,5 +101,8 @@ router.beforeEach((to,from,next)=> {
   document.title=to.name
   next()
 })
-
+//组件内部守卫
+// beforeRouteEnter(to, from, next){}//不！能！获取组件实例 `this`,因为当守卫执行前，组件实例还没被创建
+// beforeRouteUpdate(to, from, next){}
+// beforeRouteLeave(to, from, next){}
 export default router

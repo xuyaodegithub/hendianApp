@@ -211,7 +211,7 @@
               duration: 3000
             });
           } else {
-            if (this.isShen.length === 15 || this.isShen.length === 18) {
+            if (this.isShen.length === 10 || this.isShen.length === 15 || this.isShen.length === 18) {
               this.upOrNo = true
             } else {
               this.upOrNo = false
@@ -241,7 +241,7 @@
         this.isShow=true
       },
       alertSelect2() {
-        this.isShow=true
+        this.isShow2=true
       },
       choseObj(val){
         this.isObj=val.value

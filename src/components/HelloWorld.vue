@@ -111,13 +111,19 @@
   .bounce-enter-active {
     /*animation: bounce-in2 .5s linear;*/
     transform: translateX(100%);
+    /*transition: all .3s linear;*/
+
   }
 
   .bounce-leave-active {
     /*animation: bounce-in .5s linear;*/
     transform: translateX(-100%);
-  }
+    /*transition: all .3s linear;*/
 
+  }
+  /*.bounce-enter, .bounce-leave-to{
+    transform: translateX(100%);
+  }*/
   .child-view {
     transition: all .3s linear;
     /*padding-bottom: 53px;*/

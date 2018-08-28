@@ -4,7 +4,7 @@
           infinite-scroll-disabled="loading"
           infinite-scroll-distance="10"
           infinite-scroll-immediate-check="false" v-if=" twoNewsResult.list.length>0">
-        <li v-for="(item,index) in twoNewsResult.list" :key="index"  class="flex">
+        <li v-for="(item,index) in twoNewsResult.list" :key="index"  class="flex" @click="toDetial(item)">
           <p class="over">{{item.title}}</p>
           <p>{{item.publishTime | changeTime}}</p>
         </li>
