@@ -13,6 +13,7 @@
 </template>
 
 <script>
+  import Bus from '../units/bus.js'
   export default {
     props: ['msg','title','type'],
     name: 'card',
@@ -26,6 +27,9 @@
       }
     },
     methods:{
+      bus(){
+        Bus.$emit('msg','我是传给兄弟的')
+      },
       toDetial(item){
         this.$router.push('/newsDetail')
         this.$store.commit('ARTS_DETIALS_CHANGE',item.content)

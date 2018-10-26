@@ -20,6 +20,7 @@
       <mt-field label="介绍人" placeholder="请输入内容" type="text" v-model="promoters"></mt-field>
       <mt-field label="介绍人联系方式" placeholder="请输入内容" type="text" v-model="promotersPhone"></mt-field>
       <mt-field label="协会拓展人" placeholder="请输入内容" type="text" v-model="introducer"></mt-field>
+      <mt-cell title="加入时间" :value="titvale | changeTime(titvale)" @click.native="showDatapick()"></mt-cell>
       <div>
         <img :src="imgurl" alt="">
         <p>请用支付宝或微信扫二维码缴纳会费</p>
@@ -34,6 +35,16 @@
     <div class="zhezhao" v-if="isShow" @click="close()">
 
     </div>-->
+    <mt-datetime-picker
+      v-model="pickerVisible"
+      type="date"
+      ref="datapick"
+      @confirm="handleConfirm"
+      @cancel="handleConfirm2"
+      year-format="{value} 年"
+      month-format="{value} 月"
+      date-format="{value} 日">
+    </mt-datetime-picker>
     <mt-actionsheet
       :actions="actions"
       v-model="isShow">
@@ -57,6 +68,9 @@
     name: 'registered',
     data() {
       return {
+        halde(e){
+          e.preventDefault()
+        },
         isNumber: '',
         isShow:false,
         isShow2:false,
@@ -74,6 +88,8 @@
         introducer:'',
         promotersPhone:'',
         promoters:'',
+        pickerVisible:'',
+        titvale:'马上完善',
         actions:[
           {name:'会员',method:this.tochose},
           {name:'理事',method:this.tochose},
@@ -121,6 +137,33 @@
       this.promoters=''
       this.introducer=''
       this.promotersPhone=''
+    },
+    filters:{
+changeTime(val,titvale){
+  if(val && titvale !=='马上完善'){
+    let data=val
+    let year=data.getFullYear()
+    let month=data.getMonth()+1
+    let day= data.getDate()
+//    let hour= data.getHours()
+//    let min=data.getMinutes()
+//    let sec=data.getSeconds()
+    if(month.length<2){
+      month='0'+month
+    }
+    //console.log(year+'-'+month+'-'+day+' '+hour+':'+min+':'+sec)
+    // return year+'-'+month+'-'+day+' '+hour+':'+min+':'+sec
+    if(month<10){
+      month='0'+month
+    }
+    if(day<10){
+      day='0'+day
+    }
+    return year+'-'+month+'-'+day
+  }else{
+    return '马上完善'
+  }
+}
     },
     methods: {
       ...mapActions([
@@ -249,6 +292,17 @@
       },
       close(){
         this.isShow=false
+      },
+      showDatapick(){
+        this.$refs.datapick.open();
+        document.getElementsByTagName('body')[0].addEventListener('touchmove',this.halde,{passive:false})
+      },
+      handleConfirm(){
+       this.titvale = this.pickerVisible
+        document.getElementsByTagName('body')[0].removeEventListener('touchmove',this.halde,{passive:false})
+      },
+      handleConfirm2(){
+        document.getElementsByTagName('body')[0].removeEventListener('touchmove',this.halde,{passive:false})
       }
     }
   }

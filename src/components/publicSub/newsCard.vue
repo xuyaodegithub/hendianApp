@@ -1,5 +1,6 @@
 <template>
   <div class="news">
+    <!--<div>{{busVal}}</div>-->
     <div class="title flex">
       <h4>{{title}}</h4>
     </div>
@@ -18,13 +19,20 @@
 </template>
 
 <script>
+  import Bus from '../units/bus.js'
   export default {
     props: ['msg','title'],
     name: 'news',
     data() {
       return {
-
+        busVal:''
       }
+    },
+    mounted(){
+      Bus.$on('msg',(e)=>{
+        this.busVal=e
+      })
+
     },
     methods:{
       toDetial(val){
